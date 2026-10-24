@@ -1,9 +1,18 @@
-# VENV 
+# Virtual environments
 .venv/
-.env/
-env
+venv/
+env/
 
-# dbsqlite
-.sqlite
-.log
-.sqlite3
+# Environment variables
+.env
+
+# Django SQLite database
+*.sqlite3
+*.sqlite
+
+# Log files
+*.log
+
+# Python cache
+__pycache__/
+*.py[cod]
