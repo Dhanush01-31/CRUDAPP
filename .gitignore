@@ -1,0 +1,9 @@
+# VENV 
+.venv/
+.env/
+env
+
+# dbsqlite
+.sqlite
+.log
+.sqlite3
