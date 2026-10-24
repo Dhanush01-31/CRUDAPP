@@ -1,0 +1,49 @@
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <!--Bootstrap css-->
+        {% bootstrap_css %}
+
+</head>
+<body>
+    <!------ Navbar ----->
+    {% include 'navbar.html' %}
+    <!-------------------->
+
+    <!-------------------->
+    <div class="container-fluid p-2">
+        <!--messages-->
+        {% if messages %}
+            {% for message in messages %}
+            <div class="container">
+                {% if message.tags == "success" %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <strong>{{ message }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>{{ message }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% endif %}
+
+    <!-- Dynamic pages layout -->
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+    <!--------------------->
+
+    <!--Bootstrap javascript-->
+    {% bootstrap_javascript %}
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="container bg=light">
+        <h4 class="text-dark text-center">Welcome to Dashboard</h4>
+    </div>
+    <!--CRUD Table Section--->
+    <div class="container-fluid mt-2 p-2">
+        <div class="card shadow-lg">
+            <div class="card-header py-2 bg-primary text-light d-flex justify-content-between align-items-center flex-wrap">
+                <h6>Students List</h6>
+                <a href="#"><button class="btn btn-light btn-sm text-dark" type="button" data-bs-toggle="modal" data-bs-target="#createmodal" >Add student</button></a>
+            </div>
+            <div class="card-body p-2">
+               <div class="table-responsive mt-2 mb-2">
+                     <table class="table table-hover border bordered-2 text-wrap">
+                    <thead>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.age }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm bg-warning text-light" data-bs-toggle="modal" data-bs-target="#updatemodal{{ student.id }}">Edit</button>
+                                <button type="button" class="btn btn-sm bg-danger text-light" data-bs-toggle="modal" data-bs-target="#deletemodal{{ student.id }}">Delete</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+               </div>
+            </div>
+        </div>
+    </div>
+   
+    <!--Create Modal-->
+    <div class="modal" id="createmodal" data-bs-backdrop="static"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="createmodalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Student</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'add_student' %}">
+                        {% csrf_token %}
+                        <div class="mb-2">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" placeholder="Name" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Age</label>
+                            <input type="number" class="form-control" name="age" placeholder="Age" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Sample@gmail.com" required>
+                        </div>
+                        <div class="mb-2 d-flex justify-content-end">
+                            <button class="btn btn-sm bg-secondary text-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-sm bg-primary text-light mx-2">Add student</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Update Modal-->
+    {% for student in students %}
+    <div class="modal" id="updatemodal{{ student.id }}" data-bs-backdrop="static"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="updatemodalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Student</h5>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'update_student' student.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control"  name="name" value="{{ student.name }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Age</label>
+                            <input type="number" class="form-control" name="age" value="{{ student.age }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" value="{{ student.email }}">
+                        </div>
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-sm btn-secondary text-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-sm bg-primary text-light">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!--Delete modal-->
+    {% for student in students %}
+    <div class="modal" id="deletemodal{{ student.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updatemodalLabel" aria-hidden="true">
+        <div class="modal-dialog"> 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Delete student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'delete_student' student.id %}">
+                        {% csrf_token %}
+                        <div class="mb-2 mt-2">
+                            Are you sure to delete ?
+                        </div>
+                        <div class="mb-2">
+                            <button type="button" class="btn bg-secondary btn-sm text-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-sm bg-danger text-light">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

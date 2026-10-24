@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Register {% endblock %}
+{% block content %}
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg w-25 border bordered-5">
+        <div class="card-header bg-success text-center py-3"><span class="text-light fw-bold">Register</span></div>
+            <div class="card-body">
+                <form class="form" method="post" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    <div class="mb-2">
+                        <label class="form-label">FirstName<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="FirstName" name="firstname" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">LastName<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="LastName" name="lastname" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Email<span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" placeholder="sample@mail.com" name="email" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Password<span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" placeholder="Enter your password" name="password" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Confirm password<span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" placeholder="Confirm password" name="confirm_password" required>
+                    </div>
+                    <div class="d-flex justify-content-center mx-2 mb-2">
+                        <button type="submit" class="btn btn-md btn-success"><span class="text-light fw-semibold">Register</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
