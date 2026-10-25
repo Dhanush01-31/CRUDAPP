@@ -9,7 +9,7 @@ from .models import Student
 # email validate package
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-
+from .tasks import send_welcome_email
 
 
 # Create your views here.
@@ -125,9 +125,19 @@ def Register_view(request):
 
         username = str(email.split('@')[0]).lower()
 
-        User.objects.create_user(first_name=firstname,last_name=lastname,email=email,password=password,username=username)
+        Name=firstname+" "+lastname 
 
-        messages.success(request,"Registration Successfully Done")
+        usermail=email
+
+        User.objects.create_user(first_name=firstname,last_name=lastname,email=email,password=password,username=username)
+        
+        messages.success(request, "Registration Successfully Done!")
+
+        email_sent = send_welcome_email(request, username=username, password=password, Name=Name, usermail=usermail)
+        if email_sent:
+            messages.success(request, "A welcome email has been sent to your inbox.")
+        else:
+            messages.warning(request, "However, the welcome email could not be sent. Please check email settings.")
 
         return redirect('login')
     else:

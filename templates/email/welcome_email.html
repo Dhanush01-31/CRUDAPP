@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Email</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f6f8; margin: 0; padding: 20px;">
+    <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h2 style="color: #2c3e50; margin-top: 0;">Welcome to CrudApp, {{ Name }}!</h2>
+        <p style="color: #555555; font-size: 15px; line-height: 1.5;">
+            Thank you for registering with us. Your account has been successfully created.
+        </p>
+        <div style="background-color: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 20px 0; border-radius: 4px;">
+            <p style="margin: 0 0 8px 0; color: #333;"><strong>Username:</strong> {{ username }}</p>
+            <p style="margin: 0; color: #333;"><strong>Password:</strong> {{ password }}</p>
+        </div>
+        <p style="color: #555555; font-size: 14px; line-height: 1.5;">
+            You can now log in using your credentials.
+        </p>
+        <div style="margin-top: 25px; text-align: center;">
+            <a href="http://127.0.0.1:8000/login/" style="background-color: #007bff; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; display: inline-block;">Log In to Your Account</a>
+        </div>
+        <hr style="border: none; border-top: 1px solid #eeeeee; margin: 30px 0 15px 0;">
+        <p style="color: #999999; font-size: 12px; margin: 0; text-align: center;">
+            This is an automated message. Please do not reply directly to this email.
+        </p>
+    </div>
+</body>
+</html>
+
+</html>
